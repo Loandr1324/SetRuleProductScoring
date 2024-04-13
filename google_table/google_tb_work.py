@@ -190,15 +190,9 @@ class WorkGoogle:
         :param name_column: Сочетание Букв колонки excel 'A' или 'B' или 'AA' или 'BB' и т.п.
         :return:
         """
-        # values = []
-        # for i in range(2, count_row + 2):
-        #     value = ""
-        #     for product in filtered_products:
-        #         if str(i) == str(product['row_product_on_sheet']):
-        #             value = str(product['id_rule'])
-        #     values += [{'range': f"{name_column}{i}", 'values': [[value]]}]
 
-        product_dict = {str(product['row_product_on_sheet']): str(product['id_rule']) for product in filtered_products}
+        product_dict = {str(product['row_product_on_sheet']): ", ".join(product['id_rule'])
+                        for product in filtered_products}
         values = [{'range': f"{name_column}{i}", 'values': [[product_dict.get(str(i), "")]]} for i in
                   range(2, count_row + 2)]
 

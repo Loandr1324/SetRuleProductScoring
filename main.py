@@ -33,12 +33,9 @@ def selected_rule_for_position(products: list[dict], rules: list[dict]) -> list[
     for product in products:
         filtered_rule = [rule for rule in rules if rule['brand'].upper() == product['brand'].upper()]
         if not filtered_rule:
-            filtered_rule = [rule for rule in rules if rule['type_rule'] == 'общее']
-        if filtered_rule and len(filtered_rule) == 1:
-            product['id_rule'] = filtered_rule[0]['id_rule']
-        elif len(filtered_rule) > 1:
-            logger.error(f"Не определено уникальное правило для позиции {product}")
-            logger.error(f"Получены правила: {filtered_rule}")
+            filtered_rule = [rule for rule in rules if 'общее' in rule['type_rule']]
+        if filtered_rule:
+            product['id_rule'] = [rule['id_rule'] for rule in filtered_rule]
         else:
             logger.error(f"Не определено ни одного правила для позиции {product}")
     return products
