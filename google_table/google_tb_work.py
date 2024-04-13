@@ -198,8 +198,6 @@ class WorkGoogle:
 
         self._rw_google.save_batch(0, values)
 
-
-
     @staticmethod
     def convert_date(date: str) -> dt:
         """
