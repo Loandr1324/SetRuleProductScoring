@@ -152,7 +152,7 @@ class WorkGoogle:
             ключи словаря {
             'id_rule' - ID правила,
             'type_rule' - Тип правила,
-            'brand' - Имя производителя,
+            'rule_value' - Значение, которое используется при выборе правила,
             'type_select_supplier' - Тип отбора поставщиков,
             'id_suppliers' - Идентификаторы поставщиков,
             'type_select_routes' - Тип отбора маршрута,
@@ -165,15 +165,16 @@ class WorkGoogle:
             'type_selection_rule' - Тип правила отбора позиций,
             'selection_rule' - Правила отбора позиций
             },...]
-        `ID правила`, `тип правила`, `бренд`, `тип отбора поставщиков`, `поставщики`, `тип отбора маршрута`,
+        `ID правила`, `тип правила`, `значение правила`, `тип отбора поставщиков`, `поставщики`, `тип отбора маршрута`,
         `маршруты`, `тип отбора складов`, `склады`, `минимальный остаток`, `вероятность`,
         `Допустимый срок, дней`, `Цена или срок`, `отклонение цены, %`
         """
         sheet_price_filter_rules = self._rw_google.read_sheet(1)
 
-        params_head = ['id_rule', 'type_rule', 'brand', 'type_select_supplier', 'id_suppliers', 'type_select_routes',
-                       'name_routes', 'type_select_supplier_storage', 'supplier_storage', 'supplier_storage_min_stock',
-                       'delivery_probability', 'max_delivery_period', 'type_selection_rule', 'selection_rule']
+        params_head = ['id_rule', 'type_rule', 'rule_value', 'type_select_supplier', 'id_suppliers',
+                       'type_select_routes', 'name_routes', 'type_select_supplier_storage', 'supplier_storage',
+                       'supplier_storage_min_stock', 'delivery_probability', 'max_delivery_period',
+                       'type_selection_rule', 'selection_rule']
         price_filter_rules = []
         for i, val in enumerate(sheet_price_filter_rules[5:], start=6):
             price_filter_rule = dict(zip(params_head, val))
