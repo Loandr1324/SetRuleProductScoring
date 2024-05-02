@@ -26,14 +26,27 @@ def filtered_products_by_flag(products: list[dict]):
 def selected_rule_for_position(products: list[dict], rules: list[dict]) -> list[dict]:
     """
     Выбираем правило для каждой позиции
+    Общая логика:
+    - проверяем - есть правило бренда - использовать его; если нет
+    - проверяем - есть правило товарной группы - использовать его; если нет
+    - используем общее правило
     :param rules: В словарях обязательно наличие ключей 'brand', 'id_rule', 'type_rule'
-    :param products: В словарях обязательно наличие ключей 'brand', 'id_rule'
+    :param products: В словарях обязательно наличие ключей 'brand', 'product_group', 'id_rule'
     :return: Тот же список с установленным идентификатором выбранного правила в ключе словаря 'id_rule'
     """
     for product in products:
-        filtered_rule = [rule for rule in rules if rule['brand'].upper() == product['brand'].upper()]
+        # Находим правила по бренду
+        filtered_rule = [rule for rule in rules if rule['rule_value'].upper() == product['brand'].upper()]
+
+        # Находим правило по товарной группе
+        if not filtered_rule:
+            filtered_rule = [rule for rule in rules if rule['rule_value'].upper() == product['product_group'].upper()]
+
+        # Находим общее правило
         if not filtered_rule:
             filtered_rule = [rule for rule in rules if 'общее' in rule['type_rule']]
+
+        # Добавляем номера выбранных правил
         if filtered_rule:
             product['id_rule'] = [rule['id_rule'] for rule in filtered_rule]
         else:
