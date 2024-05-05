@@ -36,11 +36,16 @@ def selected_rule_for_position(products: list[dict], rules: list[dict]) -> list[
     """
     for product in products:
         # Находим правила по бренду
-        filtered_rule = [rule for rule in rules if rule['rule_value'].upper() == product['brand'].upper()]
+        filtered_rule = [
+            rule for rule in rules if rule['rule_value'].upper() == product['brand'].upper() and product['brand']
+        ]
 
         # Находим правило по товарной группе
         if not filtered_rule:
-            filtered_rule = [rule for rule in rules if rule['rule_value'].upper() == product['product_group'].upper()]
+            filtered_rule = [
+                rule for rule in rules if rule['rule_value'].upper() == product['product_group'].upper()
+                                          and product['product_group']
+            ]
 
         # Находим общее правило
         if not filtered_rule:
