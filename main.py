@@ -3,7 +3,6 @@ from config import FILE_NAME_LOG
 from google_table.google_tb_work import WorkGoogle
 from loguru import logger
 
-
 # Задаём параметры логирования
 logger.add(FILE_NAME_LOG,
            format="{time:DD/MM/YY HH:mm:ss} - {file} - {level} - {message}",
@@ -43,8 +42,8 @@ def selected_rule_for_position(products: list[dict], rules: list[dict]) -> list[
         # Находим правило по товарной группе
         if not filtered_rule:
             filtered_rule = [
-                rule for rule in rules if rule['rule_value'].upper() == product['product_group'].upper()
-                                          and product['product_group']
+                rule for rule in rules
+                if rule['rule_value'].upper() == product['product_group'].upper() and product['product_group']
             ]
 
         # Находим общее правило
