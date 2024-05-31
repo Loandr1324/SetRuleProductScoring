@@ -79,7 +79,7 @@ def main():
     products = selected_rule_for_position(products, rules)
 
     # Записываем в Google таблице данные по выбранным позициям
-    wk_g.set_selected_products(products, count_row, 'M')
+    wk_g.set_selected_products(products, count_row, 'N')
     logger.info(f"... Окончание работы программы")
 
 
